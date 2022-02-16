@@ -1,0 +1,326 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Users Documentation",
+    "description": "This is an API Users",
+    "version": "1.0.0",
+    "contact": {
+      "email": "joaooviitoorr@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a users",
+        "description": "Create a new users",
+        "requestBody": {
+          "required": true,
+          "description": "Fields to create an user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "User name sample",
+                  "email": "User email sample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "id": "984c074d-0fbd-43b5-bacb-848c41e570f8",
+                  "admin": false,
+                  "created_at": "2022-02-16T00:47:56.638Z",
+                  "updated_at": "2022-02-16T00:47:56.638Z",
+                  "name": "Joao Vitor",
+                  "email": "joaooviitoorr@gmail.com"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "User email already in use"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List all users",
+        "description": "List all users",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "user_id",
+            "schema": { "type": "string", "format": "uuid" },
+            "description": "User id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "id": "984c074d-0fbd-43b5-bacb-848c41e570f8",
+                    "admin": false,
+                    "created_at": "2022-02-16T00:47:56.638Z",
+                    "updated_at": "2022-02-16T00:47:56.638Z",
+                    "name": "Joao Vitor",
+                    "email": "joaooviitoorr@gmail.com"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "User not found or user don't have permission",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "You need to be an admin to list all users"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "List user details",
+        "description": "List user details",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "schema": { "type": "string", "format": "uuid" },
+            "description": "User id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "id": "984c074d-0fbd-43b5-bacb-848c41e570f8",
+                  "admin": false,
+                  "created_at": "2022-02-16T00:47:56.638Z",
+                  "updated_at": "2022-02-16T00:47:56.638Z",
+                  "name": "Joao Vitor",
+                  "email": "joaooviitoorr@gmail.com"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "User not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Set user as admin",
+        "description": "Set user as admin",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "schema": { "type": "string", "format": "uuid" },
+            "description": "User id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "id": "984c074d-0fbd-43b5-bacb-848c41e570f8",
+                  "admin": false,
+                  "created_at": "2022-02-16T00:47:56.638Z",
+                  "updated_at": "2022-02-16T00:47:56.638Z",
+                  "name": "Joao Vitor",
+                  "email": "joaooviitoorr@gmail.com"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "User not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
